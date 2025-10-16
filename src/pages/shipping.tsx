@@ -1,6 +1,7 @@
+import React from "react";
 import Head from "next/head";
 
-export default function ShippingPolicy() {
+const ShippingPolicy: React.FC = () => {
   return (
     <>
       <Head>
@@ -17,6 +18,7 @@ export default function ShippingPolicy() {
             Shipping & Delivery Policy
           </h1>
 
+          {/* Section 1 */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
               Digital Service – No Physical Shipping
@@ -28,6 +30,7 @@ export default function ShippingPolicy() {
             </p>
           </section>
 
+          {/* Section 2 */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
               Service Delivery Timeline
@@ -61,6 +64,7 @@ export default function ShippingPolicy() {
             </div>
           </section>
 
+          {/* Section 3 */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
               How You Receive Our Services
@@ -96,6 +100,7 @@ export default function ShippingPolicy() {
             </div>
           </section>
 
+          {/* Section 4 */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
               Service Coverage
@@ -107,6 +112,7 @@ export default function ShippingPolicy() {
             </p>
           </section>
 
+          {/* Section 5 */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
               Delivery Issues & Support
@@ -145,6 +151,7 @@ export default function ShippingPolicy() {
             </div>
           </section>
 
+          {/* Section 6 */}
           <section className="mb-8">
             <h2 className="text-2xl font-semibold text-yellow-400 mb-4">
               No Physical Goods Disclaimer
@@ -156,6 +163,7 @@ export default function ShippingPolicy() {
             </p>
           </section>
 
+          {/* Footer */}
           <section className="border-t border-gray-700 pt-6">
             <p className="text-sm text-gray-400">
               <strong>Last Updated:</strong> October 2024
@@ -174,4 +182,6 @@ export default function ShippingPolicy() {
       </main>
     </>
   );
-}
+};
+
+export default ShippingPolicy;

@@ -1,17 +1,19 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  output: "standalone",
+
+  // ✅ Keep images unoptimized for static hosting
   images: {
     unoptimized: true,
   },
 
-  // ✅ Add redirect so /shipping-policy goes to /delivery-policy
+  // ✅ Redirect not needed — we’ll serve shipping page directly
+  // If you ever had /shipping-policy, redirect it to /shipping
   async redirects() {
     return [
       {
         source: "/shipping-policy",
-        destination: "/delivery-policy",
+        destination: "/shipping",
         permanent: true,
       },
     ];
