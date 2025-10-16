@@ -1,4 +1,5 @@
 import Navbar from "@/components/Navbar";
+import RazorpayButton from "@/components/RazorpayButton";
 
 export default function Home() {
   return (
@@ -15,12 +16,9 @@ export default function Home() {
           A next-generation digital QR menu platform for restaurants and cafés.
           Update your menu instantly — no reprints, no delays.
         </p>
-        <a
-          href="#get-started"
-          className="bg-yellow-400 text-black px-6 py-3 rounded-md font-medium hover:bg-yellow-300 transition"
-        >
-          Get Started
-        </a>
+
+        {/* Razorpay Payment Button */}
+        <RazorpayButton amount={499} description="Monthly Plan - LookMenuz" />
       </section>
 
       {/* Features Section */}

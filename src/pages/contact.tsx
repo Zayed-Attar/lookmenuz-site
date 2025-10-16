@@ -1,16 +1,12 @@
-export default function ContactUs() {
+export default function Contact() {
   return (
-    <div className="p-8 max-w-3xl mx-auto text-center">
-      <h1 className="text-3xl font-bold mb-4">Contact Us</h1>
-      <p>
-        For any support, billing, or partnership inquiries, please contact us
-        at:
+    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-6">
+      <h1 className="text-3xl font-bold text-yellow-400 mb-4">Contact Us</h1>
+      <p className="text-gray-300 text-center max-w-2xl mb-4">
+        Have any questions or need assistance? We’re here to help.
       </p>
-      <p className="mt-4 text-lg font-semibold text-blue-600">
-        support@lookmenuz.com
-      </p>
-      <p className="mt-2 text-gray-600">Phone: +91 98765 43210</p>
-      <p className="mt-2 text-gray-600">Address: Pune, Maharashtra, India</p>
+      <p className="text-yellow-400">Email: support@lookmenuz.com</p>
+      <p className="text-yellow-400">Phone: +91 99999 99999</p>
     </div>
   );
 }
