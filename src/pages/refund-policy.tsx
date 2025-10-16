@@ -5,15 +5,17 @@ export default function RefundPolicy() {
         Cancellation & Refund Policy
       </h1>
       <p className="max-w-3xl text-center text-gray-300 leading-relaxed">
-        All LookMenuz subscriptions are non-refundable once activated. If you
-        face technical issues or billing errors, please contact us at{" "}
+        LookMenuz offers subscription-based digital services. Once a
+        subscription is purchased and activated, it cannot be cancelled or
+        refunded. However, in case of technical issues or accidental payments,
+        please contact our support team at{" "}
         <a
           href="mailto:support@lookmenuz.com"
           className="text-yellow-400 underline"
         >
           support@lookmenuz.com
-        </a>
-        . Refunds will only be processed in genuine cases after verification.
+        </a>{" "}
+        within 48 hours for resolution.
       </p>
     </div>
   );
