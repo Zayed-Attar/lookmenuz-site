@@ -1,21 +1,14 @@
-export default function PrivacyPolicy() {
+export default function Privacy() {
   return (
-    <div className="p-8 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Privacy Policy</h1>
-      <p>
-        At LookMenuz, we value your privacy. We collect only the data necessary
-        to provide our services effectively. Your personal information is never
-        shared with third parties without consent, except as required by law.
-      </p>
-      <p className="mt-4">
-        For any concerns or requests related to your data, please contact us at{" "}
-        <a
-          href="mailto:support@lookmenuz.com"
-          className="text-blue-500 underline"
-        >
-          support@lookmenuz.com
-        </a>
-        .
+    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8">
+      <h1 className="text-3xl font-bold text-yellow-400 mb-4">
+        Privacy Policy
+      </h1>
+      <p className="max-w-3xl text-center text-gray-300 leading-relaxed">
+        LookMenuz respects your privacy. We collect limited information such as
+        name, contact details, and payment data solely for account management
+        and billing purposes. We do not sell or share your data. All payments
+        are processed securely via Razorpay.
       </p>
     </div>
   );

@@ -1,11 +1,13 @@
-export default function ShippingPolicy() {
+export default function Shipping() {
   return (
-    <div className="p-8 max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-4">Shipping & Delivery Policy</h1>
-      <p>
-        LookMenuz is a digital SaaS platform; hence, there are no physical
-        deliveries. All features and services are activated online immediately
-        after successful payment and verification.
+    <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center p-8">
+      <h1 className="text-3xl font-bold text-yellow-400 mb-4">
+        Shipping Policy
+      </h1>
+      <p className="max-w-3xl text-center text-gray-300 leading-relaxed">
+        LookMenuz is a 100% digital SaaS platform. No physical delivery or
+        shipping is required. Upon successful payment, your subscription and
+        dashboard access are activated immediately via your registered email ID.
       </p>
     </div>
   );
