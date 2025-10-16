@@ -7,7 +7,7 @@ export default function ShippingPolicy() {
         <title>Shipping Policy | LookMenuz</title>
         <meta
           name="description"
-          content="LookMenuz provides digital SaaS services and does not involve physical shipping. Learn about our service delivery process here."
+          content="LookMenuz is a fully digital platform offering instant online services without any physical shipping."
         />
       </Head>
 
@@ -17,19 +17,19 @@ export default function ShippingPolicy() {
         </h1>
 
         <p>
-          LookMenuz is a completely digital platform providing QR menu services
-          to restaurants and cafés. We do not ship any physical goods or items.
+          LookMenuz is a 100% digital service. We do not ship any physical
+          products. All services, including menu management and digital QR menu
+          access, are delivered instantly via our online platform.
         </p>
 
         <p>
-          Once your payment is successfully processed, you will receive
-          immediate digital access to your LookMenuz dashboard and services.
-          There are no physical deliveries involved in our operations.
+          Once your payment is confirmed, your restaurant account is activated
+          automatically, and you can immediately begin managing your digital
+          menu.
         </p>
 
         <p>
-          For any questions related to our service delivery or activation
-          process, please contact us at{" "}
+          For any concerns about service delivery or activation, contact us at{" "}
           <a
             href="mailto:support@lookmenuz.com"
             className="text-yellow-400 underline"
