@@ -1,34 +1,100 @@
+"use client"; // ✅ Ensures client-side rendering to avoid hydration mismatch
+
+import Image from "next/image";
 import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Menu, X } from "lucide-react"; // For mobile menu toggle
 
 export default function Navbar() {
+  const [mounted, setMounted] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // ✅ Prevent hydration mismatch
+  useEffect(() => setMounted(true), []);
+  if (!mounted) return null;
+
   return (
-    <nav className="w-full bg-black/90 text-white border-b border-gray-800 backdrop-blur-sm fixed top-0 z-50">
-      <div className="max-w-6xl mx-auto flex items-center justify-between px-6 py-3">
-        <Link href="/" className="text-xl font-bold tracking-wide">
-          LookMenuz
+    <header className="bg-black text-white py-3 shadow-md fixed top-0 left-0 w-full z-50">
+      <div className="container mx-auto flex items-center justify-between px-6">
+        {/* Logo + Brand Name */}
+        <Link href="/" className="flex items-center gap-2">
+          <Image
+            src="/LM.png"
+            alt="LookMenuz Logo"
+            width={42}
+            height={42}
+            className="rounded-lg"
+            priority
+          />
+          <span className="text-xl font-semibold tracking-wide">LookMenuz</span>
         </Link>
 
-        <div className="hidden md:flex items-center gap-6 text-sm">
-          <Link href="/" className="hover:text-yellow-400 transition">
-            Home
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex gap-6 text-sm">
+          <Link href="#features" className="hover:text-yellow-400 transition">
+            Features
           </Link>
-          <Link href="/privacy" className="hover:text-yellow-400 transition">
-            Privacy
+          <Link href="#pricing" className="hover:text-yellow-400 transition">
+            Pricing
           </Link>
-          <Link href="/terms" className="hover:text-yellow-400 transition">
-            Terms
-          </Link>
-          <Link href="/refund" className="hover:text-yellow-400 transition">
-            Refund
-          </Link>
-          <Link href="/shipping" className="hover:text-yellow-400 transition">
-            Shipping
-          </Link>
-          <Link href="/contact" className="hover:text-yellow-400 transition">
+          <Link href="#contact" className="hover:text-yellow-400 transition">
             Contact
           </Link>
+        </nav>
+
+        {/* Desktop CTA Button */}
+        <div className="hidden md:block">
+          <Link
+            href="#get-started"
+            className="bg-yellow-400 text-black font-medium px-4 py-2 rounded-md hover:bg-yellow-300 transition"
+          >
+            Get Started
+          </Link>
         </div>
+
+        {/* Mobile Menu Button */}
+        <button
+          className="md:hidden p-2 text-white"
+          onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle Menu"
+        >
+          {menuOpen ? <X size={24} /> : <Menu size={24} />}
+        </button>
       </div>
-    </nav>
+
+      {/* Mobile Menu Drawer */}
+      {menuOpen && (
+        <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-3">
+          <Link
+            href="#features"
+            onClick={() => setMenuOpen(false)}
+            className="block text-white hover:text-yellow-400"
+          >
+            Features
+          </Link>
+          <Link
+            href="#pricing"
+            onClick={() => setMenuOpen(false)}
+            className="block text-white hover:text-yellow-400"
+          >
+            Pricing
+          </Link>
+          <Link
+            href="#contact"
+            onClick={() => setMenuOpen(false)}
+            className="block text-white hover:text-yellow-400"
+          >
+            Contact
+          </Link>
+          <Link
+            href="#get-started"
+            onClick={() => setMenuOpen(false)}
+            className="block bg-yellow-400 text-black font-medium px-4 py-2 rounded-md text-center hover:bg-yellow-300 transition"
+          >
+            Get Started
+          </Link>
+        </div>
+      )}
+    </header>
   );
 }
