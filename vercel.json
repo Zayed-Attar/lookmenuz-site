@@ -1,9 +1,9 @@
 {
-  "builds": [
+  "redirects": [
     {
-      "src": "package.json",
-      "use": "@vercel/next"
+      "source": "/renew-subscription",
+      "destination": "https://lookmenuz.com/renew-subscription",
+      "permanent": true
     }
-  ],
-  "routes": [{ "src": "/(.*)", "dest": "/" }]
+  ]
 }
