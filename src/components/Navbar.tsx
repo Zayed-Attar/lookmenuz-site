@@ -18,14 +18,12 @@ export default function Navbar() {
       <div className="container mx-auto flex items-center justify-between px-6">
         {/* Logo + Brand Name */}
         <Link href="/" className="flex items-center gap-2">
-          <Image
+          <img
             src="/LM.png"
             alt="LookMenuz Logo"
-            width={42}
-            height={42}
-            className="rounded-lg"
-            priority
+            className="h-10 w-auto rounded-md"
           />
+
           <span className="text-xl font-semibold tracking-wide">LookMenuz</span>
         </Link>
 
