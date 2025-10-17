@@ -1,34 +1,34 @@
-"use client"; // ✅ Ensures client-side rendering to avoid hydration mismatch
+"use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react"; // For mobile menu toggle
+import Image from "next/image";
+import { useState } from "react";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
-  const [mounted, setMounted] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  // ✅ Prevent hydration mismatch
-  useEffect(() => setMounted(true), []);
-  if (!mounted) return null;
+  const toggleMenu = () => setMenuOpen(!menuOpen);
 
   return (
-    <header className="bg-black text-white py-3 shadow-md fixed top-0 left-0 w-full z-50">
-      <div className="container mx-auto flex items-center justify-between px-6">
-        {/* Logo + Brand Name */}
+    <nav className="fixed top-0 left-0 w-full bg-black/90 backdrop-blur-md border-b border-gray-800 z-50">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+        {/* 🔶 Logo Section */}
         <Link href="/" className="flex items-center gap-2">
-          <img
-            src="/LM.png"
-            alt="LookMenuz Logo"
-            className="h-10 w-auto rounded-md"
-          />
-
-          <span className="text-xl font-semibold tracking-wide">LookMenuz</span>
+          <div className="relative w-8 h-8">
+            <Image
+              src="/LM.png" // ✅ Image must be in /public directory
+              alt="LookMenuz Logo"
+              fill
+              className="object-contain rounded-md"
+              priority
+            />
+          </div>
+          <span className="text-white font-bold text-lg">LookMenuz</span>
         </Link>
 
-        {/* Desktop Navigation */}
-        <nav className="hidden md:flex gap-6 text-sm">
+        {/* 🧭 Desktop Menu */}
+        <div className="hidden md:flex items-center gap-8 text-sm">
           <Link href="#features" className="hover:text-yellow-400 transition">
             Features
           </Link>
@@ -38,61 +38,60 @@ export default function Navbar() {
           <Link href="#contact" className="hover:text-yellow-400 transition">
             Contact
           </Link>
-        </nav>
+        </div>
 
-        {/* Desktop CTA Button */}
+        {/* ⚡ CTA Button */}
         <div className="hidden md:block">
           <Link
-            href="#get-started"
-            className="bg-yellow-400 text-black font-medium px-4 py-2 rounded-md hover:bg-yellow-300 transition"
+            href="#pricing"
+            className="bg-yellow-400 text-black font-semibold px-4 py-2 rounded-md hover:bg-yellow-300 transition"
           >
             Get Started
           </Link>
         </div>
 
-        {/* Mobile Menu Button */}
+        {/* 📱 Mobile Menu Button */}
         <button
-          className="md:hidden p-2 text-white"
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle Menu"
+          className="md:hidden text-gray-300 hover:text-yellow-400"
+          onClick={toggleMenu}
         >
           {menuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
-      {/* Mobile Menu Drawer */}
+      {/* 📱 Mobile Menu Dropdown */}
       {menuOpen && (
-        <div className="md:hidden bg-black border-t border-gray-800 px-6 py-4 space-y-3">
+        <div className="md:hidden bg-black border-t border-gray-800 text-center py-4 space-y-4">
           <Link
             href="#features"
-            onClick={() => setMenuOpen(false)}
-            className="block text-white hover:text-yellow-400"
+            className="block hover:text-yellow-400"
+            onClick={toggleMenu}
           >
             Features
           </Link>
           <Link
             href="#pricing"
-            onClick={() => setMenuOpen(false)}
-            className="block text-white hover:text-yellow-400"
+            className="block hover:text-yellow-400"
+            onClick={toggleMenu}
           >
             Pricing
           </Link>
           <Link
             href="#contact"
-            onClick={() => setMenuOpen(false)}
-            className="block text-white hover:text-yellow-400"
+            className="block hover:text-yellow-400"
+            onClick={toggleMenu}
           >
             Contact
           </Link>
           <Link
-            href="#get-started"
-            onClick={() => setMenuOpen(false)}
-            className="block bg-yellow-400 text-black font-medium px-4 py-2 rounded-md text-center hover:bg-yellow-300 transition"
+            href="#pricing"
+            className="inline-block bg-yellow-400 text-black font-semibold px-4 py-2 rounded-md hover:bg-yellow-300 transition"
+            onClick={toggleMenu}
           >
             Get Started
           </Link>
         </div>
       )}
-    </header>
+    </nav>
   );
 }

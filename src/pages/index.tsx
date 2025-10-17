@@ -1,13 +1,9 @@
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import RazorpayButton from "@/components/RazorpayButton";
 
 export default function Home() {
   return (
     <div className="bg-black text-white min-h-screen flex flex-col">
-      {/* 🌟 Navbar */}
-      <Navbar />
-
       {/* 🏠 Hero Section */}
       <section className="pt-24 pb-16 text-center px-6 flex-1">
         <h1 className="text-4xl md:text-5xl font-bold mb-4 text-yellow-400">
@@ -19,10 +15,13 @@ export default function Home() {
         </p>
 
         {/* 💳 Razorpay Payment Button */}
-        <RazorpayButton
-          amount={999}
-          description="Monthly Subscription - LookMenuz Premium"
-        />
+        <div id="pricing">
+          <RazorpayButton
+            restaurantId="main_site_subscription"
+            amount={999}
+            description="Monthly Subscription - LookMenuz Premium"
+          />
+        </div>
       </section>
 
       {/* ⚙️ Features Section */}
@@ -65,9 +64,6 @@ export default function Home() {
           support@lookmenuz.com
         </a>
       </section>
-
-      {/* 🔻 Footer */}
-      <Footer />
     </div>
   );
 }
