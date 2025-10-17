@@ -1,136 +1,119 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import React from "react";
-import { db } from "@/lib/firebaseConfig";
-import { doc, updateDoc } from "firebase/firestore";
-
-// 🧩 Razorpay Types
-interface RazorpayResponse {
-  razorpay_payment_id: string;
-  razorpay_order_id?: string;
-  razorpay_signature?: string;
-}
-
-interface RazorpayPrefill {
-  name: string;
-  email: string;
-  contact: string;
-}
-
-interface RazorpayTheme {
-  color: string;
-}
-
-interface RazorpayOptions {
-  key: string;
-  amount: number;
-  currency: string;
-  name: string;
-  description: string;
-  image?: string;
-  handler: (response: RazorpayResponse) => void;
-  prefill: RazorpayPrefill;
-  theme: RazorpayTheme;
-}
-
-declare global {
-  interface Window {
-    Razorpay: new (options: RazorpayOptions) => {
-      open: () => void;
-    };
-  }
-}
+import { useState } from "react";
+import Script from "next/script";
 
 interface RazorpayButtonProps {
   restaurantId: string;
   amount: number;
-  description?: string;
-  onSuccessUrl?: string;
+  description: string;
 }
 
-const RazorpayButton: React.FC<RazorpayButtonProps> = ({
+declare global {
+  interface Window {
+    Razorpay: any;
+  }
+}
+
+export default function RazorpayButton({
   restaurantId,
   amount,
-  description = "Subscription Renewal",
-  onSuccessUrl = "/",
-}) => {
-  const loadScript = (src: string): Promise<boolean> => {
-    return new Promise((resolve) => {
-      if (document.querySelector(`script[src="${src}"]`)) return resolve(true);
-      const script = document.createElement("script");
-      script.src = src;
-      script.async = true;
-      script.onload = () => resolve(true);
-      script.onerror = () => resolve(false);
-      document.body.appendChild(script);
-    });
-  };
+  description,
+}: RazorpayButtonProps) {
+  const [loading, setLoading] = useState(false);
 
-  const openCheckout = async (): Promise<void> => {
-    const ok = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
-    if (!ok) {
-      alert("Failed to load Razorpay SDK. Check connection.");
-      return;
+  const handlePayment = async (): Promise<void> => {
+    try {
+      setLoading(true);
+
+      const razorpayKey = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+      if (!razorpayKey) {
+        alert(
+          "⚠️ Razorpay key missing. Add NEXT_PUBLIC_RAZORPAY_KEY_ID to your .env.local file."
+        );
+        return;
+      }
+
+      // 1️⃣ Create order
+      const orderResponse = await fetch("/api/createOrder", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ amount, restaurantId }),
+      });
+
+      const orderData = await orderResponse.json();
+      if (!orderResponse.ok || !orderData?.orderId) {
+        alert("Failed to create order. Check backend logs.");
+        return;
+      }
+
+      // 2️⃣ Razorpay Checkout
+      const options = {
+        key: razorpayKey,
+        amount: orderData.amount,
+        currency: orderData.currency,
+        name: "LookMenuz",
+        description,
+        order_id: orderData.orderId,
+        handler: async function (response: Record<string, string>) {
+          try {
+            alert("✅ Payment successful! Verifying...");
+
+            // 3️⃣ Verify payment
+            const verifyResponse = await fetch("/api/verifyPayment", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                razorpay_order_id: response.razorpay_order_id,
+                razorpay_payment_id: response.razorpay_payment_id,
+                razorpay_signature: response.razorpay_signature,
+              }),
+            });
+
+            const verifyData = await verifyResponse.json();
+            if (!verifyResponse.ok || !verifyData.success) {
+              alert("Verification failed. Contact support.");
+              return;
+            }
+
+            // ✅ Redirect to success page
+            window.location.href = verifyData.redirectUrl;
+          } catch (err: any) {
+            console.error("🔥 Payment verification error:", err.message);
+            alert("Something went wrong. Please contact support.");
+          }
+        },
+        prefill: {
+          name: "Restaurant Owner",
+          email: "support@lookmenuz.com",
+        },
+        theme: { color: "#facc15" },
+      };
+
+      const razor = new window.Razorpay(options);
+      razor.open();
+    } catch (error: any) {
+      console.error("💥 Payment Error:", error.message || error);
+      alert("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
     }
-
-    const key = process.env.NEXT_PUBLIC_RAZORPAY_KEY;
-    if (!key) {
-      alert("Razorpay key missing. Add NEXT_PUBLIC_RAZORPAY_KEY to .env.local");
-      return;
-    }
-
-    const options: RazorpayOptions = {
-      key,
-      amount: Math.round(amount * 100),
-      currency: "INR",
-      name: "LookMenuz",
-      description,
-      image: "/LM.png",
-      handler: async function (response: RazorpayResponse): Promise<void> {
-        try {
-          const restaurantRef = doc(db, "restaurants", restaurantId);
-          const newExpiry = new Date();
-          newExpiry.setMonth(newExpiry.getMonth() + 1);
-
-          await updateDoc(restaurantRef, {
-            subscriptionStatus: "active",
-            expiryDate: newExpiry.toISOString(),
-            lastPayment: {
-              paymentId: response.razorpay_payment_id ?? null,
-              paidAt: new Date().toISOString(),
-              amountPaid: amount,
-              mode: "razorpay",
-            },
-          });
-
-          window.location.href = onSuccessUrl;
-        } catch (err: unknown) {
-          console.error("Failed to update Firestore:", err);
-          alert("Payment succeeded, but we couldn’t update the subscription.");
-        }
-      },
-      prefill: {
-        name: "Demo User",
-        email: "user@example.com",
-        contact: "9999999999",
-      },
-      theme: {
-        color: "#facc15",
-      },
-    };
-
-    const rzp = new window.Razorpay(options);
-    rzp.open();
   };
 
   return (
-    <button
-      onClick={openCheckout}
-      className="bg-yellow-400 text-black font-semibold px-6 py-2 rounded-md hover:bg-yellow-300 transition"
-    >
-      Renew for ₹{amount}
-    </button>
+    <>
+      <Script
+        src="https://checkout.razorpay.com/v1/checkout.js"
+        strategy="lazyOnload"
+      />
+      <button
+        onClick={handlePayment}
+        disabled={loading}
+        className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-200 disabled:opacity-50"
+      >
+        {loading ? "Processing..." : `Renew for ₹${amount}`}
+      </button>
+    </>
   );
-};
-
-export default RazorpayButton;
+}

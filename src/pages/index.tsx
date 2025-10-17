@@ -1,4 +1,3 @@
-import Navbar from "@/components/Navbar";
 import RazorpayButton from "@/components/RazorpayButton";
 
 export default function Home() {
