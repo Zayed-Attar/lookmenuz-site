@@ -21,8 +21,8 @@ export default function RenewPayment() {
       <div className="mb-10">
         <RazorpayButton
           restaurantId="main_site_subscription"
-          amount={999}
-          description="LookMenuz Premium Monthly Subscription"
+          amount={1499}
+          description="LookMenuz Premium Monthly Subscription (₹1499)"
         />
       </div>
 

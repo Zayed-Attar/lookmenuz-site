@@ -15,7 +15,7 @@ export default function SubscriptionSuccess() {
   const [paymentData, setPaymentData] = useState({
     paymentId: "",
     orderId: "",
-    amount: 999,
+    amount: 1499,
     date: new Date().toLocaleString(),
   });
 
@@ -23,7 +23,7 @@ export default function SubscriptionSuccess() {
     const urlParams = new URLSearchParams(window.location.search);
     const paymentId = urlParams.get("paymentId") || generateRandomId("pay");
     const orderId = urlParams.get("orderId") || generateRandomId("order");
-    const amount = parseInt(urlParams.get("amount") || "999", 10);
+    const amount = parseInt(urlParams.get("amount") || "1499", 10);
 
     setPaymentData({
       paymentId,
@@ -60,7 +60,7 @@ export default function SubscriptionSuccess() {
     doc.text(`Order ID: ${paymentData.orderId}`, 20, 60);
     doc.text(`Amount Paid: ₹${paymentData.amount}`, 20, 70);
     doc.text(`Payment Date: ${paymentData.date}`, 20, 80);
-    doc.text(`Plan: Monthly Subscription`, 20, 90);
+    doc.text(`Plan: Monthly Subscription (₹1499)`, 20, 90);
 
     doc.setFont("helvetica", "bold");
     doc.text(
@@ -72,7 +72,7 @@ export default function SubscriptionSuccess() {
     doc.setFontSize(10);
     doc.setFont("helvetica", "italic");
     doc.text(
-      "For support, contact +91 78218 62046 or support@lookmenuz.com",
+      "For support, contact +91 78218 62046 or lookmenuzhelp@gmail.com",
       20,
       130
     );
@@ -81,56 +81,55 @@ export default function SubscriptionSuccess() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#0B021B] to-[#12052D] text-white text-center px-6 animate-fadeIn">
-      {/* 🎉 Success Icon & Title */}
-      <div className="bg-white/10 border border-white/10 rounded-full p-4 mb-6 shadow-[0_0_20px_rgba(250,204,21,0.3)]">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#0B021B] to-[#12052D] text-white text-center px-6">
+      {/* 🎉 Success icon */}
+      <div className="bg-white/10 border border-white/10 rounded-full p-4 mb-4 shadow-[0_0_18px_rgba(250,204,21,0.28)]">
         <span className="text-[#FACC15] text-3xl">🎉</span>
       </div>
 
-      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#FACC15] tracking-wide">
+      {/* 💎 Title */}
+      <h1 className="text-3xl md:text-4xl font-extrabold mb-3 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#FACC15] tracking-wide">
         Subscription Payment Received!
       </h1>
 
-      <p className="text-gray-400 mb-6 max-w-md leading-relaxed text-lg">
+      {/* Description */}
+      <p className="text-gray-400 mb-4 max-w-md leading-relaxed text-base">
         Thank you for your payment. It may take up to{" "}
         <span className="text-[#FACC15] font-semibold">6–12 hours</span> to
         restore your admin access.
       </p>
 
-      <p className="text-gray-300 max-w-md leading-relaxed mb-8">
+      <p className="text-gray-300 max-w-md leading-relaxed mb-6">
         To activate your menu access sooner, please send your payment receipt
         and details to{" "}
         <span className="text-[#FACC15] font-semibold">+91 78218 62046</span> on
         WhatsApp.
       </p>
 
-      {/* ✅ Input Field */}
+      {/* Input */}
       <input
         type="text"
         placeholder="Enter your restaurant name"
         value={restaurantName}
         onChange={(e) => setRestaurantName(e.target.value)}
-        className="text-black rounded-full px-5 py-3 mb-5 w-72 text-center focus:outline-none focus:ring-2 focus:ring-[#FACC15] shadow-[0_0_10px_rgba(250,204,21,0.2)]"
+        className="text-black rounded-full px-5 py-3 mb-4 w-72 text-center focus:outline-none focus:ring-2 focus:ring-[#FACC15] shadow-[0_0_8px_rgba(250,204,21,0.18)]"
       />
 
-      {/* ✅ Download Button */}
+      {/* Download button */}
       <button
         onClick={downloadReceipt}
-        className="button-gold font-semibold py-3 px-8 text-base"
+        className="bg-[#FACC15] hover:bg-[#EAB308] text-black font-semibold py-3 px-7 rounded-full shadow-[0_0_16px_rgba(250,204,21,0.25)] transition-all duration-200"
       >
         📄 Download Receipt
       </button>
 
-      {/* 🔗 Go Back Link */}
+      {/* Back link */}
       <a
         href="https://lookmenuz.com"
-        className="mt-8 text-[#FACC15] hover:text-[#EAB308] underline text-sm transition-colors duration-300"
+        className="mt-6 mb-4 text-[#FACC15] hover:text-[#EAB308] underline text-sm"
       >
         Go Back to LookMenuz
       </a>
-
-      {/* ✨ Divider */}
-      <div className="w-32 h-[1px] mt-10 bg-gradient-to-r from-transparent via-[#FACC15]/60 to-transparent"></div>
     </div>
   );
 }

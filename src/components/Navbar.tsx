@@ -54,7 +54,7 @@ export default function Navbar() {
         {/* ⚡ CTA Button */}
         <div className="hidden md:block">
           <Link
-            href="#pricing"
+            href="/get-started"
             className="bg-[#FACC15] text-black font-semibold px-5 py-2.5 rounded-full shadow-[0_0_15px_rgba(250,204,21,0.4)] hover:bg-[#EAB308] hover:shadow-[0_0_25px_rgba(250,204,21,0.6)] transition-all duration-300"
           >
             Get Started
@@ -95,7 +95,7 @@ export default function Navbar() {
             Contact
           </Link>
           <Link
-            href="#pricing"
+            href="/get-started"
             className="inline-block bg-[#FACC15] text-black font-semibold px-5 py-2.5 rounded-full shadow-[0_0_10px_rgba(250,204,21,0.4)] hover:bg-[#EAB308] transition-all duration-300"
             onClick={toggleMenu}
           >
