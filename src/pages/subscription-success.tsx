@@ -20,7 +20,6 @@ export default function SubscriptionSuccess() {
   });
 
   useEffect(() => {
-    // ✅ Extract payment info from URL
     const urlParams = new URLSearchParams(window.location.search);
     const paymentId = urlParams.get("paymentId") || generateRandomId("pay");
     const orderId = urlParams.get("orderId") || generateRandomId("order");
@@ -44,19 +43,16 @@ export default function SubscriptionSuccess() {
 
     const doc = new jsPDF();
 
-    // ✅ Add Logo (Optional)
     try {
       doc.addImage("/LM.png", "PNG", 160, 10, 30, 20);
     } catch (err) {
       console.warn("Logo not found, skipping image.");
     }
 
-    // ✅ Header
     doc.setFont("helvetica", "bold");
     doc.setFontSize(20);
     doc.text("LookMenuz Payment Receipt", 20, 20);
 
-    // ✅ Body
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
     doc.text(`Restaurant Name: ${restaurantName}`, 20, 40);
@@ -73,7 +69,6 @@ export default function SubscriptionSuccess() {
       110
     );
 
-    // ✅ Footer
     doc.setFontSize(10);
     doc.setFont("helvetica", "italic");
     doc.text(
@@ -82,52 +77,60 @@ export default function SubscriptionSuccess() {
       130
     );
 
-    // ✅ Save PDF
     doc.save(`LookMenuz_Receipt_${restaurantName.replace(/\s+/g, "_")}.pdf`);
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-black text-white text-center px-6">
-      <h1 className="text-3xl font-bold text-yellow-400 mb-4">
-        🎉 Subscription Payment Received!
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-[#0B021B] to-[#12052D] text-white text-center px-6 animate-fadeIn">
+      {/* 🎉 Success Icon & Title */}
+      <div className="bg-white/10 border border-white/10 rounded-full p-4 mb-6 shadow-[0_0_20px_rgba(250,204,21,0.3)]">
+        <span className="text-[#FACC15] text-3xl">🎉</span>
+      </div>
+
+      <h1 className="text-4xl md:text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#FACC15] tracking-wide">
+        Subscription Payment Received!
       </h1>
 
-      <p className="text-gray-400 mb-6 max-w-md leading-relaxed">
+      <p className="text-gray-400 mb-6 max-w-md leading-relaxed text-lg">
         Thank you for your payment. It may take up to{" "}
-        <span className="text-yellow-400 font-semibold">6–12 hours</span> to
+        <span className="text-[#FACC15] font-semibold">6–12 hours</span> to
         restore your admin access.
       </p>
 
-      <p className="text-gray-300 max-w-md leading-relaxed mb-4">
+      <p className="text-gray-300 max-w-md leading-relaxed mb-8">
         To activate your menu access sooner, please send your payment receipt
         and details to{" "}
-        <span className="text-yellow-400 font-semibold">+91 78218 62046</span>{" "}
-        on WhatsApp.
+        <span className="text-[#FACC15] font-semibold">+91 78218 62046</span> on
+        WhatsApp.
       </p>
 
-      {/* ✅ Input for Restaurant Name */}
+      {/* ✅ Input Field */}
       <input
         type="text"
         placeholder="Enter your restaurant name"
         value={restaurantName}
         onChange={(e) => setRestaurantName(e.target.value)}
-        className="text-black rounded-lg px-4 py-2 mb-4 w-72 text-center focus:outline-none focus:ring-2 focus:ring-yellow-400"
+        className="text-black rounded-full px-5 py-3 mb-5 w-72 text-center focus:outline-none focus:ring-2 focus:ring-[#FACC15] shadow-[0_0_10px_rgba(250,204,21,0.2)]"
       />
 
-      {/* ✅ Download Receipt Button */}
+      {/* ✅ Download Button */}
       <button
         onClick={downloadReceipt}
-        className="bg-yellow-400 hover:bg-yellow-500 text-black font-semibold py-3 px-6 rounded-lg transition-all duration-200"
+        className="button-gold font-semibold py-3 px-8 text-base"
       >
         📄 Download Receipt
       </button>
 
+      {/* 🔗 Go Back Link */}
       <a
         href="https://lookmenuz.com"
-        className="mt-6 text-yellow-400 hover:text-yellow-500 underline text-sm"
+        className="mt-8 text-[#FACC15] hover:text-[#EAB308] underline text-sm transition-colors duration-300"
       >
         Go Back to LookMenuz
       </a>
+
+      {/* ✨ Divider */}
+      <div className="w-32 h-[1px] mt-10 bg-gradient-to-r from-transparent via-[#FACC15]/60 to-transparent"></div>
     </div>
   );
 }

@@ -2,19 +2,19 @@ import RazorpayButton from "@/components/RazorpayButton";
 
 export default function Home() {
   return (
-    <div className="bg-black text-white min-h-screen flex flex-col">
-      {/* 🏠 Hero Section */}
-      <section className="pt-24 pb-16 text-center px-6 flex-1">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4 text-yellow-400">
+    <div className="bg-gradient-to-b from-[#1A082D] via-[#140622] to-[#0F021A] text-white min-h-screen flex flex-col font-[Playfair_Display]">
+      {/* Hero */}
+      <section className="pt-32 pb-20 text-center px-6 flex-1 animate-fadeIn">
+        <h1 className="text-5xl md:text-6xl font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-white to-[#FFD84D]">
           Welcome to LookMenuz
         </h1>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto mb-8">
+
+        <p className="text-gray-300 text-lg max-w-2xl mx-auto mb-10 leading-relaxed font-sans">
           A next-generation digital QR menu platform for restaurants and cafés.
           Update your menu instantly — no reprints, no delays.
         </p>
 
-        {/* 💳 Razorpay Payment Button */}
-        <div id="pricing">
+        <div id="pricing" className="flex justify-center">
           <RazorpayButton
             restaurantId="main_site_subscription"
             amount={999}
@@ -23,45 +23,64 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ⚙️ Features Section */}
-      <section id="features" className="py-16 px-6 bg-[#0a0a0a]">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8 text-yellow-400">Features</h2>
+      {/* Features */}
+      <section
+        id="features"
+        className="py-16 px-6 bg-transparent border-t border-white/10"
+      >
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-4xl font-bold mb-14 text-[#FFD84D]">Features</h2>
           <div className="grid gap-10 md:grid-cols-3">
-            <div>
-              <h3 className="font-semibold mb-2 text-lg">Instant Updates</h3>
-              <p className="text-gray-400 text-sm">
-                Update your restaurant’s menu in real-time from anywhere.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2 text-lg">QR-Based Access</h3>
-              <p className="text-gray-400 text-sm">
-                Guests can scan and view your digital menu without any hassle.
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold mb-2 text-lg">Admin Dashboard</h3>
-              <p className="text-gray-400 text-sm">
-                Simple interface for adding, editing, or removing dishes.
-              </p>
-            </div>
+            {[
+              {
+                title: "Instant Updates",
+                desc: "Update your restaurant’s menu in real-time from anywhere.",
+              },
+              {
+                title: "QR-Based Access",
+                desc: "Guests can scan and view your digital menu without any hassle.",
+              },
+              {
+                title: "Admin Dashboard",
+                desc: "Simple interface for adding, editing, or removing dishes.",
+              },
+            ].map((f, i) => (
+              <div
+                key={i}
+                className="bg-[#15072C]/70 backdrop-blur-md border border-[#FFD84D]/20 rounded-2xl p-8"
+              >
+                <h3 className="font-semibold mb-3 text-lg text-white">
+                  {f.title}
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed font-sans">
+                  {f.desc}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* 📬 Contact Section */}
-      <section id="contact" className="py-16 px-6 text-center">
-        <h2 className="text-3xl font-bold mb-4 text-yellow-400">Contact Us</h2>
-        <p className="text-gray-400 mb-4">
-          Have questions or want to get started? Reach out anytime.
-        </p>
-        <a
-          href="mailto:support@lookmenuz.com"
-          className="text-yellow-400 underline hover:text-yellow-300 transition-colors"
-        >
-          support@lookmenuz.com
-        </a>
+      {/* Contact */}
+      <section
+        id="contact"
+        className="py-20 px-6 text-center bg-gradient-to-b from-transparent via-[#12052D]/70 to-[#0B021B]"
+      >
+        <div className="max-w-3xl mx-auto">
+          <h2 className="text-4xl font-extrabold mb-6 text-[#FFD84D]">
+            Contact Us
+          </h2>
+          <p className="text-gray-300 mb-6 text-[17px] leading-relaxed font-sans">
+            Have questions or want to get started? Reach out anytime — we’d love
+            to help your restaurant go digital.
+          </p>
+          <a
+            href="mailto:support@lookmenuz.com"
+            className="inline-block text-[#FFD84D] font-semibold text-lg underline"
+          >
+            support@lookmenuz.com
+          </a>
+        </div>
       </section>
     </div>
   );

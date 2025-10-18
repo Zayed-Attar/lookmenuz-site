@@ -4,22 +4,26 @@
 
 /* 🌙 Theme customization */
 :root {
-  --background: #000000;
+  --background: linear-gradient(to bottom, #0b021b, #12052d);
   --foreground: #ffffff;
   --accent-yellow: #facc15;
-  --accent-hover: #fde047;
+  --accent-hover: #eab308;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --card-hover: rgba(255, 255, 255, 0.1);
 }
 
+/* 🌌 Global Body */
 body {
-  background-color: var(--background);
+  background: var(--background);
   color: var(--foreground);
   font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  scroll-behavior: smooth;
 }
 
-/* ✨ LookMenuz Accent Styling */
+/* ✨ Text and Accent Styling */
 .text-yellow-400 {
   color: var(--accent-yellow);
 }
@@ -32,19 +36,108 @@ body {
   background-color: var(--accent-hover);
 }
 
-/* Smooth transitions */
+/* 🪄 Smooth Transitions */
 a,
 button {
-  transition: all 0.2s ease-in-out;
+  transition: all 0.3s ease-in-out;
 }
 
-/* Footer styles */
+/* 🧭 Link Hover */
+a:hover {
+  text-shadow: 0 0 8px rgba(250, 204, 21, 0.3);
+}
+
+/* 🪶 Card Styles (used in Features section) */
+.card {
+  background: var(--card-bg);
+  border-radius: 1rem;
+  padding: 1.5rem;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+}
+
+.card:hover {
+  background: var(--card-hover);
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.15);
+}
+
+/* 🌟 Golden Glow Button */
+.button-gold {
+  background-color: var(--accent-yellow);
+  color: black;
+  font-weight: 600;
+  padding: 0.7rem 1.6rem;
+  border-radius: 9999px;
+  box-shadow: 0 0 15px rgba(250, 204, 21, 0.4);
+  transition: all 0.3s ease-in-out;
+}
+
+.button-gold:hover {
+  background-color: var(--accent-hover);
+  box-shadow: 0 0 25px rgba(250, 204, 21, 0.6);
+  transform: translateY(-2px);
+}
+
+/* 🌈 Gradient Text Utility */
+.gradient-text {
+  background: linear-gradient(to right, #ffffff, #facc15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 🌫️ Footer Styles */
 footer {
-  background-color: #000;
-  border-top: 1px solid #222;
+  background: linear-gradient(to bottom, #0b021b, #12052d);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   color: #aaa;
 }
 
 footer a:hover {
   color: var(--accent-yellow);
+}
+
+/* 🌟 Divider Line (used in Footer) */
+.gradient-divider {
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(250, 204, 21, 0.4),
+    transparent
+  );
+}
+
+/* 🌬️ Fade-In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+/* 🌟 Scrollbar Styling (for modern touch) */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0b021b;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #facc15;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #eab308;
 }
